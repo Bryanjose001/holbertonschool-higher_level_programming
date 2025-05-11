@@ -1,16 +1,21 @@
 #!/usr/bin/python3
+"""A script that prints the number of arguments and lists them."""
+
 import sys
-argc = len(sys.argv)
-index = 0
+
 if __name__ == "__main__":
-    if argc == 1:
+    # Get command-line arguments excluding the script name
+    args = sys.argv[1:]
+
+    # Count the number of arguments
+    num_args = len(args)
+
+    # If no arguments were passed, print a special message
+    if num_args == 0:
         print("0 arguments.")
-    elif argc == 2:
-        print("1 argument:")
-        print("1: {}".format(sys.argv[1]))
-    elif argc > 2:
-        print("{} arguments:".format(argc - 1))
-        for args in sys.argv[1:]:
-            index += 1
-            print("{}: {}".format((index), args))
-            
+    else:
+        # Print number of arguments with correct grammar
+        print(f"{num_args} argument{'s' if num_args != 1 else ''}:")
+        # Print each argument with its index
+        for i, arg in enumerate(args, start=1):
+            print(f"{i}: {arg}")
