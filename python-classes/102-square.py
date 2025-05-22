@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 class Square:
-    """Defines a square based on size, supports area and comparisons."""
+    """Defines a square by its size and supports area and comparisons."""
 
     def __init__(self, size=0):
         self.size = size
@@ -22,19 +22,31 @@ class Square:
         return self.__size ** 2
 
     def __eq__(self, other):
-        return self.area() == other.area()
+        if isinstance(other, Square):
+            return self.area() == other.area()
+        return NotImplemented
 
     def __ne__(self, other):
-        return self.area() != other.area()
+        if isinstance(other, Square):
+            return self.area() != other.area()
+        return NotImplemented
 
     def __lt__(self, other):
-        return self.area() < other.area()
+        if isinstance(other, Square):
+            return self.area() < other.area()
+        return NotImplemented
 
     def __le__(self, other):
-        return self.area() <= other.area()
+        if isinstance(other, Square):
+            return self.area() <= other.area()
+        return NotImplemented
 
     def __gt__(self, other):
-        return self.area() > other.area()
+        if isinstance(other, Square):
+            return self.area() > other.area()
+        return NotImplemented
 
     def __ge__(self, other):
-        return self.area() >= other.area()
+        if isinstance(other, Square):
+            return self.area() >= other.area()
+        return NotImplemented
