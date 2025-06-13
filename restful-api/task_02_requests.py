@@ -1,4 +1,5 @@
 import requests
+import csv
 from http import HTTPStatus
 
 def fetch_and_print_posts():
