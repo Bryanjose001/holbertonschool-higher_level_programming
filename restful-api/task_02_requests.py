@@ -34,7 +34,7 @@ def fetch_and_save_posts():
                 # Add the dictionary to a list
                 post_list.append(post_dict) 
             # Define output file path
-            filename = "post.csv"
+            filename = "posts.csv"
 
             # Get the fieldnames (CSV column headers)
             fieldnames = post_list[0].keys()
