@@ -1,2 +1,2 @@
---task:6
+-- task:6
 SELECT * FROM first_table;
