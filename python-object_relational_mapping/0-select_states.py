@@ -5,7 +5,8 @@ import sys
 
 
 def list_states(username, password, database_name):
-    """Connects to MySQL server and lists all states in ascending order by id"""
+    """Connects to MySQL server and lists
+    all states in ascending order by id"""
     try:
         conn = MySQLdb.connect(
             host="localhost",
