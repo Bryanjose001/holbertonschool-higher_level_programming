@@ -8,10 +8,10 @@ def list_states(username, password, database_name):
     """Connects to MySQL server and lists all states in ascending order by id"""
     try:
         conn = MySQLdb.connect(host="localhost",
-                               port=3306,
-                               user=username,
-                               passwd=password,
-                               db=database_name)
+            port=3306,
+            user=username,
+            passwd=password,
+            db=database_name)
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM states ORDER BY id ASC")
         states = cursor.fetchall()
