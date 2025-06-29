@@ -7,18 +7,18 @@ import sys
 def list_states(username, password, database_name):
     """Connects to MySQL server and lists all states in ascending order by id"""
     try:
-        conn = MySQLdb.connect(host="localhost",
+        conn = MySQLdb.connect(
+            host="localhost",
             port=3306,
             user=username,
             passwd=password,
-            db=database_name)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM states ORDER BY id ASC")
-        states = cursor.fetchall()
-        for state in states:
-            print(state)
+            db=database_name
+        )
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT * FROM states ORDER BY id ASC")
+            for state in cursor.fetchall():
+                print(state)
 
-        cursor.close()
         conn.close()
 
     except MySQLdb.Error as e:
@@ -27,4 +27,8 @@ def list_states(username, password, database_name):
 
 if __name__ == "__main__":
     # Get command-line arguments and call the function
+    if len(sys.argv) != 4:
+        print("Usage: ./script.py <username> <password> <database_name>")
+        sys.exit(1)
+
     list_states(sys.argv[1], sys.argv[2], sys.argv[3])
