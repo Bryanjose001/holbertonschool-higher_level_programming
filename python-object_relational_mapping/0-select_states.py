@@ -26,7 +26,7 @@ def list_states(username, password, database_name):
         print(f"Error connecting to MySQL or executing query: {e}")
 
 
-if name == "main":
+if  __name__ == "__main__":
     # Get command-line arguments and call the function
     if len(sys.argv) != 4:
         print("Usage: ./script.py <username> <password> <database_name>")
