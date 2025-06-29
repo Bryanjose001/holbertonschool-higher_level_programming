@@ -1,30 +1,35 @@
 #!/usr/bin/python3
-"""Python - Object Relational Mapping ft MySQLdb and sys"""
+"""This script connects to a MySQL database and lists all states"""
 import MySQLdb
 import sys
 
 
-if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    db_name = sys.argv[3]
-
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=username,
-        passwd=password,
-        db=db_name
+def list_states(username, password, database_name):
+    """Connects to MySQL server and lists
+    all states in ascending order by id"""
+    try:
+        conn = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=username,
+            passwd=password,
+            db=database_name
         )
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT * FROM states ORDER BY id ASC")
+            for state in cursor.fetchall():
+                print(state)
 
-    cursor = db.cursor()
+        conn.close()
 
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    except MySQLdb.Error as e:
+        print(f"Error connecting to MySQL or executing query: {e}")
 
-    states = cursor.fetchall()
 
-    for state in states:
-        print(state)
+if name == "main":
+    # Get command-line arguments and call the function
+    if len(sys.argv) != 4:
+        print("Usage: ./script.py <username> <password> <database_name>")
+        sys.exit(1)
 
-    cursor.close()
-    db.close()
+    list_states(sys.argv[1], sys.argv[2], sys.argv[3])
