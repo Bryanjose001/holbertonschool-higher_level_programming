@@ -1,35 +1,35 @@
 #!/usr/bin/python3
-"""
-Lists all states from the database hbtn_0e_0_usa.
-Connects using MySQLdb and prints rows sorted by id.
-"""
-
+"""This script connects to a MySQL database and lists all states"""
 import MySQLdb
 import sys
 
-if name == "main":
-    # Get MySQL credentials and database from command-line arguments
-    username, password, db_name = sys.argv[1], sys.argv[2], sys.argv[3]
 
-    # Connect to MySQL database on localhost:3306
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=username,
-        passwd=password,
-        db=db_name
-    )
+def list_states(username, password, database_name):
+    """Connects to MySQL server and lists
+    all states in ascending order by id"""
+    try:
+        conn = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=username,
+            passwd=password,
+            db=database_name
+        )
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT * FROM states ORDER BY id ASC")
+            for state in cursor.fetchall():
+                print(state)
 
-    # Create a cursor to execute queries
-    cursor = db.cursor()
+        conn.close()
 
-    # Execute query: select all states ordered by id
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    except MySQLdb.Error as e:
+        print(f"Error connecting to MySQL or executing query: {e}")
 
-    # Fetch and print results
-    for row in cursor.fetchall():
-        print(row)
 
-    # Clean up
-    cursor.close()
-    db.close()
+if  __name__ == "__main__":
+    # Get command-line arguments and call the function
+    if len(sys.argv) != 4:
+        print("Usage: ./script.py <username> <password> <database_name>")
+        sys.exit(1)
+
+    list_states(sys.argv[1], sys.argv[2], sys.argv[3])
