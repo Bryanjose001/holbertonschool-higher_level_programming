@@ -1,11 +1,12 @@
-addEventListener("DOMContentLoaded", function () {
-    addItem = () => {
-        const newItem = document.createElement("li");
-        newItem.innerText = "Item";
-        // Appending new <li> element to <ul> 'my_list'
-        document.querySelector(".my_list").append(newItem);
-    };
+document.addEventListener('DOMContentLoaded', function () {
+    // This script adds a new item to the list when the button is clicked
+  const item = document.getElementById('add_item');
+  const list = document.querySelector('.my_list');
 
-    const addItemElement = document.querySelector("#add_item");
-    addItemElement.addEventListener("click", addItem);
+  item.addEventListener('click', function () {
+    const newItem = document.createElement('li');
+    newItem.textContent = 'Item';
+
+    list.appendChild(newItem);
+  });
 });
