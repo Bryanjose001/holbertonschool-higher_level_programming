@@ -24,4 +24,4 @@ def create_database():
 
 if __name__ == '__main__':
     create_database()
-    print("Base de datos 'products.db' creada con éxito.")
+    print("data base 'products.db' created perfectly.")
