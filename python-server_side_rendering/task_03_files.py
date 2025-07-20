@@ -47,6 +47,7 @@ def product():
 
     data = []
     error = None
+    status_code = 200
 
     try:
         if source == "json":
@@ -58,18 +59,20 @@ def product():
         else:
             error = "Invalid source. Use ?source=json or ?source=csv"
             print(error)
+            status_code = 400
 
-        if product_id:
+        if product_id and status_code == 200:
             print(f"Filtering product with ID: {product_id}")
             data = [item for item in data if item.get("id") == product_id]
             if not data:
                 error = f"No product found with ID: {product_id}"
+                status_code = 404
 
     except Exception as e:
         error = f"An error occurred: {str(e)}"
         print(error)
+        status_code = 500
 
-    return render_template("product_display.html", products=data, error=error)
-
+    return render_template("product_display.html", products=data, error=error), status_code
 if __name__ == '__main__':
    app.run(debug=True, port=5000)
