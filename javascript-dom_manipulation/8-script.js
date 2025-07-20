@@ -1,18 +1,19 @@
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://hellosalut.stefanbohacek.dev/?lang=fr")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            // Get `hello` value from response and put text into element
-            const helloValue = data.hello;
-            document.getElementById("hello").textContent = helloValue;
-        })
-        // Catch any errors that occur during the fetch
-        .catch((error) => {
-            console.error("Error fetching translation:", error);
-        });
+document.addEventListener('DOMContentLoaded', () => {
+  const url = 'https://hellosalut.stefanbohacek.dev/?lang=fr';
+
+    // Fetch the translation from the API
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json(); // Parse the JSON response
+    })
+    .then(data => {
+    // Update the element with id 'hello' with the translated text
+      document.getElementById('hello').textContent = data.hello;
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
 });

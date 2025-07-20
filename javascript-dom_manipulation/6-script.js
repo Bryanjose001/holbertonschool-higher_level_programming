@@ -1,16 +1,19 @@
-function fetchCharFromAPI() {
-    const api = "https://swapi-api.hbtn.io/api/people/5/?format=json";
-    const character = document.querySelector("#character");
+document.addEventListener('DOMContentLoaded', () => {
+  const apiUrl = 'https://swapi-api.hbtn.io/api/people/5/?format=json';
 
-    fetch(api)
-        .then((response) => response.json())
-        .then((data) => {
-            const charName = data.name;
-            character.textContent = charName;
-        })
-        .catch((error) => {
-            console.error("Error: ", error);
-        });
-}
-
-fetchCharFromAPI();
+  // Select the element with id 'fetch_character'
+  fetch(apiUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json(); // Parse JSON from response
+    })
+    .then(data => {
+// Update the element with id 'character' with the name from the API
+      document.getElementById('character').textContent = data.name;
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
+});
